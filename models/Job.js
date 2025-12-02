@@ -10,6 +10,11 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  slug: {
+    type: String,
+    lowercase: true,
+    trim: true
+  },
   department: String,
   location: {
     type: String,
@@ -38,6 +43,8 @@ const jobSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+jobSchema.index({ companyId: 1, slug: 1 }, { unique: true, sparse: true });
 
 export default mongoose.model('Job', jobSchema);
 
